@@ -1,7 +1,7 @@
 <html>
 	<head>
 		<title>Leaflet.Boatmarker Demo</title>
-		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css">
 		<style>
 			html, body {
 				padding:0px;
@@ -19,13 +19,14 @@
 
 	<body>
 		<div id="map"></div>
-		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-		<script src="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
+		<script src="https://api.tiles.mapbox.com/mapbox.js/plugins/turf/v2.0.0/turf.min.js"></script>
 		<script src="js/leaflet.boatmarker.min.js"></script>
 
 		<script>
 			// create a map in the "map" div, set the view to a given place and zoom
-			var map = L.map("map").setView([54.186588, 12.020755], 11);
+			var map = L.map("map").setView([54.199343, 12.020497], 13);
 
 			// add an OpenStreetMap tile layer
 			L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png", {
@@ -36,6 +37,32 @@
 			var boatMarker = L.boatMarker(map.getCenter(), {
 			    color: "#f1c40f"
 			}).addTo(map);
+
+			boatMarker.setHeading(60);
+
+			function getRandomArbitrary(min, max) {
+			    return Math.random() * (max - min) + min;
+			}
+
+			var heading = 60;
+
+			// start simulation
+			window.setInterval(function() {
+
+				var speed = getRandomArbitrary(8.0, 16.0);
+				var direction = getRandomArbitrary((heading - 50) % 360, (heading - 40) % 360);
+				
+				if(heading > 30)
+					heading -= 0.5;
+
+				boatMarker.setHeadingWind(heading, speed, direction);
+
+				var destination = turf.destination(boatMarker.toGeoJSON(), 0.02, 60, "kilometers");
+				
+				var ll = destination.geometry.coordinates.reverse();
+				boatMarker.setLatLng(ll);
+
+			}, 500);
 		</script>
 	</body>
 </html>
