@@ -58,9 +58,7 @@
 				boatMarker.setHeadingWind(heading, speed, direction);
 
 				var destination = turf.destination(boatMarker.toGeoJSON(), 0.02, 60, "kilometers");
-				
-				var ll = destination.geometry.coordinates.reverse();
-				boatMarker.setLatLng(ll);
+				boatMarker.setLatLng(destination.geometry.coordinates.reverse());
 
 			}, 488);
 		</script>
