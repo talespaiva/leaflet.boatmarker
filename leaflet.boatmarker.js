@@ -18,7 +18,7 @@ L.BoatIcon = L.Icon.extend({
 	},
 
 	x: 76,
-	y: 85,
+	y: 80,
 	x_fac: .5,
 	y_fac: .5,
 	ctx: null,
