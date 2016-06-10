@@ -17,10 +17,10 @@ L.BoatIcon = L.Icon.extend({
 		windSpeed: 0
 	},
 
-	x: 66,
+	x: 76,
 	y: 85,
-	x_fac: 0.18,
-	y_fac: 0.18,
+	x_fac: .5,
+	y_fac: .5,
 	ctx: null,
 	lastHeading: 0,
 	lastWindDirection: 0,
@@ -57,18 +57,18 @@ L.BoatIcon = L.Icon.extend({
 
 		//ctx.fillRect(0,0,w,h);
 
-		// draw boat
+		// draw arrow
 		ctx.beginPath();
 		ctx.moveTo(x, y);
 		
-		ctx.lineTo(x-10, y);
-		ctx.lineTo(x-10, y-20);
-		ctx.lineTo(x-20, y-20);
-		ctx.lineTo(x, y-40);
+		ctx.lineTo(x-10*x_fac, y);
+		ctx.lineTo(x-10*x_fac, y-20*y_fac);
+		ctx.lineTo(x-20*x_fac, y-20*y_fac);
+		ctx.lineTo(x, y-40*y_fac);
 
-		ctx.lineTo(x+20, y-20);
-		ctx.lineTo(x+10, y-20);
-		ctx.lineTo(x+10, y);
+		ctx.lineTo(x+20*x_fac, y-20*y_fac);
+		ctx.lineTo(x+10*x_fac, y-20*y_fac);
+		ctx.lineTo(x+10*x_fac, y);
 		ctx.lineTo(x, y);
 
 		ctx.fillStyle = this.options.color;
