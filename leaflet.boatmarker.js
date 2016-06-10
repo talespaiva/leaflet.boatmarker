@@ -15,7 +15,7 @@ L.BoatIcon = L.Icon.extend({
 		wind: false,
 		windDirection: 0,
 		windSpeed: 0,
-		scaleFactor: .8,
+		scaleFactor: .2,
 	},
 	
 	x: 76,
@@ -149,7 +149,7 @@ L.BoatMarker = L.Marker.extend({
 L.boatMarker = function(pos, options) {
 
 	var c = ("color" in options) ? options.color : "#f1c40f";
-	var s = ("scaleFactor" in options) ? options.scaleFactor : .5;
+	var s = ("scaleFactor" in options) ? options.scaleFactor : .2;
 	options.icon = new L.BoatIcon({ color: c, scaleFactor: s });
 
     return new L.BoatMarker(pos, options);
