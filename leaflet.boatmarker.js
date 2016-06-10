@@ -60,17 +60,27 @@ L.BoatIcon = L.Icon.extend({
 		// draw boat
 		ctx.beginPath();
 		ctx.moveTo(x, y);
-		ctx.bezierCurveTo(x, y+(80*y_fac), x+(100*x_fac), y+(80*y_fac), x+(100*x_fac), y);
-		ctx.quadraticCurveTo(x+(100*x_fac), y-(100*y_fac), x+(50*x_fac), y-(200*y_fac));
-		ctx.quadraticCurveTo(x, y-(100*y_fac), x, y);
+		
+		ctx.lineTo(x-10, y);
+		ctx.lineTo(x-10, y-20);
+		ctx.lineTo(x-20, y-20);
+		ctx.lineTo(x, y-40);
+
+		ctx.lineTo(x+20, y-20);
+		ctx.lineTo(x+10, y-20);
+		ctx.lineTo(x+10, y);
+		ctx.lineTo(x, y);
+
 		ctx.fillStyle = this.options.color;
 		ctx.fill();
 		ctx.stroke();
 		ctx.closePath();
 
+		
 		// draw wind
+		/*
 		if(this.options.wind == true) {
-
+			
 			ctx.translate(w/2, h/2);
 			ctx.rotate(this.options.windDirection*Math.PI/180);
 			ctx.translate(-w/2, -h/2);
@@ -100,6 +110,7 @@ L.BoatIcon = L.Icon.extend({
 
       		ctx.stroke();
 		}
+		*/
 	},
 
 	setHeadingWind: function(heading, windSpeed, windDirection) {

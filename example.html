@@ -18,17 +18,18 @@
 		var boatMarker = L.boatMarker(map.getCenter(), { color: "#f1c40f" });
 		boatMarker.bindLabel("Sailyacht", { noHide: true, direction: "auto" });
 
-		boatMarker.setHeading(90);
+		boatMarker.setHeading(-90);
 
 		map.addLayer(boatMarker);
-
+		
 		window.setInterval(function() {
 			var crs = Math.floor(Math.random() * 90) + 1
 			var wnd_dir = Math.floor(Math.random() * 45) + 1
 			var wnd_spd = Math.floor(Math.random() * 35) + 1
 			
 			boatMarker.setHeadingWind(crs, wnd_spd, wnd_dir);
-		}, 2000);
+		}, 500);
+		
 
 	</script>
 </body>
