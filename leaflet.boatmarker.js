@@ -14,13 +14,12 @@ L.BoatIcon = L.Icon.extend({
 		labelAnchor: [23, 0],
 		wind: false,
 		windDirection: 0,
-		windSpeed: 0
+		windSpeed: 0,
+		scaleFactor: .8,
 	},
-
+	
 	x: 76,
 	y: 90,
-	x_fac: .5,
-	y_fac: .5,
 	ctx: null,
 	lastHeading: 0,
 	lastWindDirection: 0,
@@ -32,6 +31,7 @@ L.BoatIcon = L.Icon.extend({
 		e.width = s.x;
 		e.height = s.y;
 		this.lastHeading = 0;   // reset in case the marker is removed and added again
+		this.scaleFactor = this.options.scaleFactor;
 		this.ctx = e.getContext("2d");
 		this.draw(e.getContext("2d"), s.x, s.y);
 		return e;
@@ -46,9 +46,8 @@ L.BoatIcon = L.Icon.extend({
 		var x = this.x;
 		var y = this.y;
 
-		var x_fac = this.x_fac;
-		var y_fac = this.y_fac;
-
+		var fac = this.scaleFactor;
+		
 		ctx.clearRect(0, 0, w, h);
 
 		ctx.translate(w/2, h/2);
@@ -61,14 +60,14 @@ L.BoatIcon = L.Icon.extend({
 		ctx.beginPath();
 		ctx.moveTo(x, y);
 		
-		ctx.lineTo(x-10*x_fac, y);
-		ctx.lineTo(x-10*x_fac, y-20*y_fac);
-		ctx.lineTo(x-20*x_fac, y-20*y_fac);
-		ctx.lineTo(x, y-40*y_fac);
+		ctx.lineTo(x-10*fac, y);
+		ctx.lineTo(x-10*fac, y-20*fac);
+		ctx.lineTo(x-20*fac, y-20*fac);
+		ctx.lineTo(x, y-40*fac);
 
-		ctx.lineTo(x+20*x_fac, y-20*y_fac);
-		ctx.lineTo(x+10*x_fac, y-20*y_fac);
-		ctx.lineTo(x+10*x_fac, y);
+		ctx.lineTo(x+20*fac, y-20*fac);
+		ctx.lineTo(x+10*fac, y-20*fac);
+		ctx.lineTo(x+10*fac, y);
 		ctx.lineTo(x, y);
 
 		ctx.fillStyle = this.options.color;
@@ -150,7 +149,8 @@ L.BoatMarker = L.Marker.extend({
 L.boatMarker = function(pos, options) {
 
 	var c = ("color" in options) ? options.color : "#f1c40f";
-	options.icon = new L.BoatIcon({ color: c});
-	
+	var s = ("scaleFactor" in options) ? options.scaleFactor : .5;
+	options.icon = new L.BoatIcon({ color: c, scaleFactor: s });
+
     return new L.BoatMarker(pos, options);
 };
